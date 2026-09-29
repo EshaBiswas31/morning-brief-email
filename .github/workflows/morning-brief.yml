@@ -1,0 +1,45 @@
+name: Morning Brief
+
+on:
+  schedule:
+    # GitHub cron runs in UTC. 02:20 UTC = 7:50 AM IST, Monday to Friday.
+    # GitHub can start scheduled jobs 5–20 minutes late, so this aims for ~8 AM.
+    - cron: "20 2 * * 1-5"
+  workflow_dispatch:   # adds a "Run workflow" button for manual tests
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Build and send brief
+        run: python main.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}     # optional: AI summary
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}             # your Gmail address
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}   # Gmail app password
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}                       # optional: send to another address
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}           # only if delivery method is telegram
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Keep a copy of the brief
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: brief-${{ github.run_id }}
+          path: briefs/
+          if-no-files-found: ignore
+          retention-days: 30

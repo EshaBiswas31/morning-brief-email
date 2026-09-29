@@ -1,0 +1,60 @@
+# ─────────────────────────────────────────────────────────────
+#  Morning Brief configuration — edit this file, not the code.
+#  Tickers use Yahoo Finance symbols (Indian stocks end in .NS).
+# ─────────────────────────────────────────────────────────────
+
+timezone: Asia/Kolkata
+
+# How the brief reaches you: email | telegram | none
+# "none" = no sending; read it on the GitHub Actions run page instead.
+delivery:
+  method: email
+
+# Headline indices shown at the top of the brief
+market_overview:
+  Nifty 50: ^NSEI
+  Sensex: ^BSESN
+  Bank Nifty: ^NSEBANK
+  S&P 500: ^GSPC
+  Nasdaq: ^IXIC
+  Nikkei 225: ^N225
+  Hang Seng: ^HSI
+
+# Macro and cross-asset indicators
+macro:
+  Brent Crude: BZ=F
+  Gold: GC=F
+  USD/INR: INR=X
+  US 10Y Yield: ^TNX
+  India VIX: ^INDIAVIX
+
+# Your stocks. Only those with something notable are discussed.
+watchlist:
+  - RELIANCE.NS
+  - TCS.NS
+  - HDFCBANK.NS
+  - INFY.NS
+  - ICICIBANK.NS
+
+# Thresholds that decide what counts as "notable"
+signals:
+  big_move_pct: 3.0        # daily move of ±3% or more
+  rsi_overbought: 70
+  rsi_oversold: 30
+  volume_spike_x: 2.0      # volume vs 20-day average
+  near_52w_pct: 2.0        # within 2% of 52-week high/low
+
+# RSS news feeds. A broken feed is skipped, not fatal.
+news:
+  max_age_hours: 24
+  max_headlines: 60
+  feeds:
+    - https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms
+    - https://www.livemint.com/rss/markets
+    - https://www.moneycontrol.com/rss/marketreports.xml
+    - https://www.cnbc.com/id/100003114/device/rss/rss.html
+
+# Claude settings. Haiku is fast and cheap; swap in claude-sonnet-5 for deeper analysis.
+claude:
+  model: claude-haiku-4-5-20251001
+  max_tokens: 1200
