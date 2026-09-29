@@ -2,7 +2,7 @@
 
 Usage:
     python main.py              # build and send (email by default, see config.yaml)
-    python main.py --dry-run    # build and print only (no Telegram)
+    python main.py --dry-run    # build and print only (nothing sent or saved to the scorecard)
     python main.py --no-ai      # skip Claude (useful for testing data)
 """
 from __future__ import annotations
@@ -17,7 +17,7 @@ from zoneinfo import ZoneInfo
 
 import yaml
 
-from brief import deliver, market, news, report, summarize
+from brief import deliver, market, news, outlook, report, scorecard, summarize
 
 log = logging.getLogger("morning-brief")
 
@@ -50,7 +50,50 @@ def main() -> int:
     log.info("Fetching prices…")
     overview = market.snapshot(cfg["market_overview"], today)
     macro = market.snapshot(cfg["macro"], today)
-    watch = market.watchlist(cfg.get("watchlist", []), cfg["signals"])
+    tickers = cfg.get("watchlist", [])
+    ocfg = cfg.get("outlook", {})
+    o_enabled = ocfg.get("enabled", True)
+    cue_cfg = ocfg.get("global_cue", {})
+    needed = list(tickers)
+    if o_enabled:
+        needed += list(ocfg.get("indices", {}).values()) + [cue_cfg.get("target"), cue_cfg.get("driver")]
+    needed = list(dict.fromkeys(t for t in needed if t))  # unique, keep order
+    frames = market.history(needed, ocfg.get("lookback", "5y"))
+    watch = market.watchlist(frames, tickers, cfg["signals"])
+
+    # 2b. Outlook: forward-looking odds from historical base rates
+    outlooks: list[dict] = []
+    track = None
+    if o_enabled:
+        log.info("Computing outlook…")
+        h, min_n = ocfg.get("horizon_days", 5), ocfg.get("min_samples", 30)
+        names = {v: k for k, v in ocfg.get("indices", {}).items()}
+        tgt, drv = cue_cfg.get("target"), cue_cfg.get("driver")
+        if tgt in frames and drv in frames:
+            try:
+                cue = outlook.global_cue(frames[tgt], frames[drv], names.get(tgt, tgt),
+                                         cue_cfg.get("driver_name", drv), min_n)
+                outlooks.append({"ticker": tgt, **cue})
+            except Exception as exc:
+                log.warning("Global cue failed: %s", exc)
+        for t in list(names) + tickers:
+            if t not in frames:
+                outlooks.append({"ticker": t, "name": names.get(t, t), "error": "no data"})
+                continue
+            try:
+                outlooks.append({"ticker": t, **outlook.setup_outlook(frames[t], names.get(t, t), h, min_n)})
+            except Exception as exc:
+                log.warning("Outlook failed for %s: %s", t, exc)
+                outlooks.append({"ticker": t, "name": names.get(t, t), "error": "failed"})
+
+        # Scorecard: grade matured calls, then log today's
+        sc_path = ocfg.get("scorecard_file", "data/predictions.csv")
+        book = scorecard.load(sc_path)
+        book = scorecard.grade(book, {t: f["Close"] for t, f in frames.items()})
+        book = scorecard.add(book, outlooks, today)
+        track = scorecard.summary(book, today, ocfg.get("track_record_days", 60))
+        if not args.dry_run:
+            scorecard.save(book, sc_path)
 
     log.info("Fetching news…")
     ncfg = cfg["news"]
@@ -74,6 +117,8 @@ def main() -> int:
             "market_overview": overview,
             "macro": macro,
             "watchlist": watch,
+            "outlook": [{k: v for k, v in o.items() if k != "entry_close"} for o in outlooks],
+            "track_record": track,
             "headlines": [{"title": h["title"], "source": h["source"]} for h in headlines],
             "data_notes": notes,
         }
@@ -89,7 +134,8 @@ def main() -> int:
         narrative = report.fallback_summary(watch, headlines)
 
     # 4. Format
-    text = report.assemble(today, report.numbers_section(overview, macro), narrative, notes)
+    outlook_text = report.outlook_section(outlooks, track) if o_enabled else ""
+    text = report.assemble(today, report.numbers_section(overview, macro), narrative, notes, outlook_text)
     saved = deliver.save(text, "briefs", str(today))
     log.info("Saved %s", saved)
 

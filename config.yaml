@@ -44,6 +44,22 @@ signals:
   volume_spike_x: 2.0      # volume vs 20-day average
   near_52w_pct: 2.0        # within 2% of 52-week high/low
 
+# Forward-looking outlook: "last time the chart looked like this, what happened next?"
+outlook:
+  enabled: true
+  lookback: 5y             # how much history to learn from
+  horizon_days: 5          # predict the next N trading sessions
+  min_samples: 30          # need at least this many similar past days
+  indices:                 # also scored, in addition to the watchlist
+    Nifty 50: ^NSEI
+    Bank Nifty: ^NSEBANK
+  global_cue:              # how Nifty behaved after similar overnight US moves
+    target: ^NSEI
+    driver: ^GSPC
+    driver_name: S&P 500
+  scorecard_file: data/predictions.csv
+  track_record_days: 60
+
 # RSS news feeds. A broken feed is skipped, not fatal.
 news:
   max_age_hours: 24

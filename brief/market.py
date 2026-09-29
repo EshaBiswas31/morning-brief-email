@@ -65,20 +65,34 @@ def snapshot(named: dict[str, str], today: date) -> list[dict]:
     return rows
 
 
-def watchlist(tickers: list[str], signal_cfg: dict) -> list[dict]:
-    """1 year of history per stock so we can compute 50-DMA, RSI, 52-week range."""
+def history(tickers: list[str], period: str = "5y") -> dict[str, pd.DataFrame]:
+    """Long daily history for each ticker, one batch download. Missing tickers are left out."""
+    frames: dict[str, pd.DataFrame] = {}
     if not tickers:
-        return []
+        return frames
     try:
-        data = _download(tickers, "1y")
+        data = _download(tickers, period)
     except Exception as exc:
-        log.error("Watchlist download failed: %s", exc)
-        return [{"ticker": t, "error": "unavailable"} for t in tickers]
+        log.error("History download failed: %s", exc)
+        return frames
+    for ticker in tickers:
+        try:
+            df = _frame_for(data, ticker).dropna(subset=["Close"])
+            if len(df) > 0:
+                frames[ticker] = df
+            else:
+                log.warning("No history for %s", ticker)
+        except Exception as exc:
+            log.warning("No history for %s: %s", ticker, exc)
+    return frames
 
+
+def watchlist(frames: dict[str, pd.DataFrame], tickers: list[str], signal_cfg: dict) -> list[dict]:
+    """Signals for each watchlist stock, using the last year of its history."""
     rows: list[dict] = []
     for ticker in tickers:
         try:
-            df = _frame_for(data, ticker)
+            df = frames[ticker].tail(260)
             rows.append({"ticker": ticker, **analyze_stock(df, signal_cfg)})
         except Exception as exc:
             log.warning("Could not analyze %s: %s", ticker, exc)

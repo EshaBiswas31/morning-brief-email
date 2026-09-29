@@ -7,6 +7,11 @@ on:
     - cron: "20 2 * * 1-5"
   workflow_dispatch:   # adds a "Run workflow" button for manual tests
 
+permissions:
+  contents: write      # lets the job save the prediction scorecard back to the repo
+
+concurrency: morning-brief   # never run two briefs at the same time
+
 jobs:
   brief:
     runs-on: ubuntu-latest
@@ -34,6 +39,18 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}                       # optional: send to another address
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}           # only if delivery method is telegram
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Save the prediction scorecard
+        if: always()
+        run: |
+          if [ -f data/predictions.csv ]; then
+            git config user.name "morning-brief-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/predictions.csv
+            git diff --cached --quiet || git commit -m "Scorecard update $(date -u +%F)"
+            git pull --rebase --autostash || true
+            git push || echo "Could not push the scorecard (not fatal)"
+          fi
 
       - name: Keep a copy of the brief
         if: always()

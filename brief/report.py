@@ -38,9 +38,66 @@ def fallback_summary(watch: list[dict], headlines: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def assemble(today: date, numbers: str, narrative: str, notes: list[str]) -> str:
+BIAS_ICON = {"bullish": "🟢", "bearish": "🔴", "neutral": "⚪️"}
+
+
+def outlook_section(outlooks: list[dict], track: dict | None) -> str:
+    """The forward-looking part: bias, probability, why, and what would prove it wrong."""
+    lines = ["📈 OUTLOOK (historical odds, not certainties)"]
+
+    # Overnight US cue always gets its own line: it's the freshest information of the morning
+    for o in [o for o in outlooks if o.get("kind") == "global_cue"]:
+        lines.append("")
+        lines.append(
+            f"🌙 {o['name']} today: {BIAS_ICON[o['bias']]} {o['bias'].upper()}"
+            + (f" bias, {o['p_up']:.0%} chance up (normal {o['base_p_up']:.0%}) · {o['confidence']} confidence"
+               if o["bias"] != "neutral" else f", no clear edge ({o['p_up']:.0%} up vs normal {o['base_p_up']:.0%})")
+        )
+        lines.append("   Why: " + " · ".join(o["reasons"]))
+        lines.append("   History: " + o["evidence"])
+
+    setups = [o for o in outlooks if o.get("kind") != "global_cue"]
+    calls = [o for o in setups if "error" not in o and o["bias"] != "neutral"]
+    neutral = [o for o in setups if "error" not in o and o["bias"] == "neutral"]
+    missing = [o for o in outlooks if "error" in o]
+
+    for o in calls:
+        lines.append("")
+        lines.append(
+            f"{BIAS_ICON[o['bias']]} {o['name']} · {o['horizon_label']}: {o['bias'].upper()} bias, "
+            f"{o['p_up']:.0%} chance up (normal {o['base_p_up']:.0%}) · {o['confidence']} confidence"
+        )
+        lines.append("   Why: " + " · ".join(o["reasons"]))
+        lines.append("   History: " + o["evidence"])
+        if o.get("wrong_if"):
+            lines.append("   Wrong if: " + o["wrong_if"])
+
+    if not calls:
+        lines += ["", "No chart setup has a meaningful historical edge this week."]
+    if neutral:
+        lines += ["", f"⚪️ No clear edge ({neutral[0]['horizon_label']}): "
+                  + ", ".join(f"{o['name']} ({o['p_up']:.0%} up)" for o in neutral)]
+    if missing:
+        lines.append("▫️ Not enough data: " + ", ".join(o["name"] for o in missing))
+
+    if track is not None:
+        lines.append("")
+        if track.get("graded"):
+            lines.append(
+                f"🎯 Track record (last {track['window_days']} days): {track['hits']}/{track['graded']} "
+                f"calls correct ({track['hit_rate']:.0%}). {track['open']} still open."
+            )
+        else:
+            lines.append(f"🎯 Track record starts once the first calls mature ({track['open']} open).")
+    return "\n".join(lines)
+
+
+def assemble(today: date, numbers: str, narrative: str, notes: list[str], outlook: str = "") -> str:
     header = f"☀️ MORNING BRIEF · {today.strftime('%a %d %b %Y')}"
-    parts = [header, "", numbers, "", narrative]
+    parts = [header, "", numbers]
+    if outlook:
+        parts += ["", outlook]
+    parts += ["", narrative]
     if notes:
         parts += ["", "ℹ️ " + " | ".join(notes)]
     parts += ["", "Not investment advice. Data: Yahoo Finance, public RSS feeds."]
