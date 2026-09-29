@@ -1,0 +1,9 @@
+made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,status,exit_date,exit_close,return_pct
+2026-09-29,^NSEI,Nifty 50,global_cue,1,neutral,none,0.492,2026-09-29,22716.2,unscored,,,
+2026-09-29,^NSEI,Nifty 50,setup,5,neutral,none,0.457,2026-09-29,22716.2,unscored,,,
+2026-09-29,^NSEBANK,Bank Nifty,setup,5,neutral,none,0.469,2026-09-29,54259.95,unscored,,,
+2026-09-29,RELIANCE.NS,RELIANCE.NS,setup,5,neutral,none,0.554,2026-09-29,1182.0,unscored,,,
+2026-09-29,TCS.NS,TCS.NS,setup,5,neutral,none,0.457,2026-09-29,2032.4,unscored,,,
+2026-09-29,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.4,2026-09-29,722.7,open,,,
+2026-09-29,INFY.NS,INFY.NS,setup,5,neutral,none,0.563,2026-09-29,1015.4,unscored,,,
+2026-09-29,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.545,2026-09-29,1292.2,unscored,,,
