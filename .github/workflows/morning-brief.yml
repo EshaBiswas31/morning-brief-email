@@ -1,10 +1,6 @@
 name: Morning Brief
 
 on:
-  schedule:
-    # GitHub cron runs in UTC. 02:20 UTC = 7:50 AM IST, Monday to Friday.
-    # GitHub can start scheduled jobs 5–20 minutes late, so this aims for ~8 AM.
-    - cron: "20 2 * * 1-5"
   workflow_dispatch:   # adds a "Run workflow" button for manual tests
 
 permissions:
