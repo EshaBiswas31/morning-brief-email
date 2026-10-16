@@ -65,9 +65,9 @@ made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,sta
 2026-10-09,^NSEI,Nifty 50,setup,5,neutral,none,0.48,2026-10-08,22231.8,unscored,,,
 2026-10-09,^NSEBANK,Bank Nifty,setup,5,neutral,none,0.471,2026-10-08,54515.05,unscored,,,
 2026-10-09,RELIANCE.NS,RELIANCE.NS,setup,5,neutral,none,0.538,2026-10-08,1178.0,unscored,,,
-2026-10-09,TCS.NS,TCS.NS,setup,5,bearish,low,0.414,2026-10-08,2076.0,open,,,
-2026-10-09,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.436,2026-10-08,692.25,open,,,
-2026-10-09,INFY.NS,INFY.NS,setup,5,bullish,moderate,0.619,2026-10-08,997.0,open,,,
+2026-10-09,TCS.NS,TCS.NS,setup,5,bearish,low,0.414,2026-10-08,2076.0,miss,2026-10-15,2350.0,13.2
+2026-10-09,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.436,2026-10-08,692.25,miss,2026-10-15,726.85,5.0
+2026-10-09,INFY.NS,INFY.NS,setup,5,bullish,moderate,0.619,2026-10-08,997.0,hit,2026-10-15,1110.0,11.33
 2026-10-09,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.512,2026-10-08,1349.0,unscored,,,
 2026-10-12,^NSEI,Nifty 50,global_cue,1,neutral,none,0.567,2026-10-09,22520.45,unscored,,,
 2026-10-12,^NSEI,Nifty 50,setup,5,bearish,moderate,0.449,2026-10-09,22520.45,open,,,
@@ -93,7 +93,7 @@ made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,sta
 2026-10-14,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.389,2026-10-13,714.0,open,,,
 2026-10-14,INFY.NS,INFY.NS,setup,5,neutral,none,0.478,2026-10-13,1062.1,unscored,,,
 2026-10-14,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.516,2026-10-13,1360.2,unscored,,,
-2026-10-15,^NSEI,Nifty 50,global_cue,1,bearish,moderate,0.299,2026-10-14,22622.7,open,,,
+2026-10-15,^NSEI,Nifty 50,global_cue,1,bearish,moderate,0.299,2026-10-14,22622.7,miss,2026-10-15,22997.35,1.66
 2026-10-15,^NSEI,Nifty 50,setup,5,neutral,none,0.451,2026-10-14,22622.7,unscored,,,
 2026-10-15,^NSEBANK,Bank Nifty,setup,5,neutral,none,0.5,2026-10-14,55316.0,unscored,,,
 2026-10-15,RELIANCE.NS,RELIANCE.NS,setup,5,neutral,none,0.526,2026-10-14,1174.6,unscored,,,
@@ -101,3 +101,11 @@ made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,sta
 2026-10-15,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.389,2026-10-14,710.7,open,,,
 2026-10-15,INFY.NS,INFY.NS,setup,5,bearish,low,0.412,2026-10-14,1088.0,open,,,
 2026-10-15,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.512,2026-10-14,1338.6,unscored,,,
+2026-10-16,^NSEI,Nifty 50,global_cue,1,neutral,none,0.565,2026-10-15,22997.35,unscored,,,
+2026-10-16,^NSEI,Nifty 50,setup,5,bullish,low,0.633,2026-10-15,22997.35,open,,,
+2026-10-16,^NSEBANK,Bank Nifty,setup,5,neutral,none,0.457,2026-10-15,55810.5,unscored,,,
+2026-10-16,RELIANCE.NS,RELIANCE.NS,setup,5,neutral,none,0.473,2026-10-15,1215.0,unscored,,,
+2026-10-16,TCS.NS,TCS.NS,setup,5,bearish,low,0.355,2026-10-15,2350.0,open,,,
+2026-10-16,HDFCBANK.NS,HDFCBANK.NS,setup,5,bullish,moderate,0.721,2026-10-15,726.85,open,,,
+2026-10-16,INFY.NS,INFY.NS,setup,5,neutral,none,0.519,2026-10-15,1110.0,unscored,,,
+2026-10-16,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.454,2026-10-15,1389.4,unscored,,,
