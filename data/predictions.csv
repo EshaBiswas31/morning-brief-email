@@ -86,11 +86,11 @@ made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,sta
 2026-10-13,INFY.NS,INFY.NS,setup,5,neutral,none,0.478,2026-10-09,1023.4,unscored,,,
 2026-10-13,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.492,2026-10-09,1355.0,unscored,,,
 2026-10-14,^NSEI,Nifty 50,global_cue,1,neutral,none,0.487,2026-10-13,22721.95,unscored,,,
-2026-10-14,^NSEI,Nifty 50,setup,5,bearish,moderate,0.443,2026-10-13,22721.95,open,,,
-2026-10-14,^NSEBANK,Bank Nifty,setup,5,bearish,moderate,0.441,2026-10-13,55481.05,open,,,
+2026-10-14,^NSEI,Nifty 50,setup,5,bearish,moderate,0.443,2026-10-13,22721.95,miss,2026-10-21,22811.35,0.39
+2026-10-14,^NSEBANK,Bank Nifty,setup,5,bearish,moderate,0.441,2026-10-13,55481.05,hit,2026-10-21,54976.9,-0.91
 2026-10-14,RELIANCE.NS,RELIANCE.NS,setup,5,neutral,none,0.53,2026-10-13,1166.7,unscored,,,
 2026-10-14,TCS.NS,TCS.NS,setup,5,neutral,none,0.469,2026-10-13,2257.3,unscored,,,
-2026-10-14,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.389,2026-10-13,714.0,open,,,
+2026-10-14,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.389,2026-10-13,714.0,hit,2026-10-21,706.95,-0.99
 2026-10-14,INFY.NS,INFY.NS,setup,5,neutral,none,0.478,2026-10-13,1062.1,unscored,,,
 2026-10-14,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.516,2026-10-13,1360.2,unscored,,,
 2026-10-15,^NSEI,Nifty 50,global_cue,1,bearish,moderate,0.299,2026-10-14,22622.7,miss,2026-10-15,22997.35,1.66
@@ -133,3 +133,11 @@ made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,sta
 2026-10-21,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.411,2026-10-19,712.0,open,,,
 2026-10-21,INFY.NS,INFY.NS,setup,5,neutral,none,0.525,2026-10-19,1130.7,unscored,,,
 2026-10-21,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.516,2026-10-19,1381.0,unscored,,,
+2026-10-22,^NSEI,Nifty 50,global_cue,1,neutral,none,0.568,2026-10-21,22811.35,unscored,,,
+2026-10-22,^NSEI,Nifty 50,setup,5,bullish,low,0.633,2026-10-21,22811.35,open,,,
+2026-10-22,^NSEBANK,Bank Nifty,setup,5,neutral,none,0.55,2026-10-21,54976.9,unscored,,,
+2026-10-22,RELIANCE.NS,RELIANCE.NS,setup,5,neutral,none,0.467,2026-10-21,1209.0,unscored,,,
+2026-10-22,TCS.NS,TCS.NS,setup,5,bearish,low,0.414,2026-10-21,2529.0,open,,,
+2026-10-22,HDFCBANK.NS,HDFCBANK.NS,setup,5,bearish,low,0.404,2026-10-21,706.95,open,,,
+2026-10-22,INFY.NS,INFY.NS,setup,5,neutral,none,0.53,2026-10-21,1168.0,unscored,,,
+2026-10-22,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.482,2026-10-21,1385.0,unscored,,,
