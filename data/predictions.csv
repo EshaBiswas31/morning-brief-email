@@ -224,9 +224,9 @@ made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,sta
 2026-11-06,^NSEI,Nifty 50,global_cue,1,bearish,moderate,0.304,2026-11-04,23960.6,miss,2026-11-05,24536.6,2.4
 2026-11-06,^NSEI,Nifty 50,setup,5,neutral,none,0.586,2026-11-04,23960.6,unscored,,,
 2026-11-06,^NSEBANK,Bank Nifty,setup,5,neutral,none,0.484,2026-11-04,55913.6,unscored,,,
-2026-11-06,RELIANCE.NS,RELIANCE.NS,setup,5,bearish,low,0.424,2026-11-04,1311.0,open,,,
+2026-11-06,RELIANCE.NS,RELIANCE.NS,setup,5,bearish,low,0.424,2026-11-04,1311.0,miss,2026-11-12,1339.7,2.19
 2026-11-06,TCS.NS,TCS.NS,setup,5,neutral,none,0.479,2026-11-04,2436.0,unscored,,,
-2026-11-06,HDFCBANK.NS,HDFCBANK.NS,setup,5,bullish,moderate,0.618,2026-11-04,736.7,open,,,
+2026-11-06,HDFCBANK.NS,HDFCBANK.NS,setup,5,bullish,moderate,0.618,2026-11-04,736.7,hit,2026-11-12,812.3,10.26
 2026-11-06,INFY.NS,INFY.NS,setup,5,neutral,none,0.56,2026-11-04,1128.2,unscored,,,
 2026-11-06,ICICIBANK.NS,ICICIBANK.NS,setup,5,neutral,none,0.486,2026-11-04,1424.1,unscored,,,
 2026-11-09,^NSEI,Nifty 50,setup,5,neutral,none,0.522,2026-11-08,24986.4,unscored,,,
@@ -268,3 +268,11 @@ made_on,ticker,name,kind,horizon,bias,confidence,p_up,entry_date,entry_close,sta
 2026-11-13,HDFCBANK.NS,HDFCBANK.NS,setup,5,bullish,low,0.6,2026-11-11,806.6,open,,,
 2026-11-13,INFY.NS,INFY.NS,setup,5,neutral,none,0.564,2026-11-11,1155.0,unscored,,,
 2026-11-13,ICICIBANK.NS,ICICIBANK.NS,setup,5,bearish,low,0.407,2026-11-11,1571.6,open,,,
+2026-11-16,^NSEI,Nifty 50,global_cue,1,neutral,none,0.493,2026-11-13,25144.3,unscored,,,
+2026-11-16,^NSEI,Nifty 50,setup,5,bullish,moderate,0.632,2026-11-13,25144.3,open,,,
+2026-11-16,^NSEBANK,Bank Nifty,setup,5,neutral,none,0.547,2026-11-13,61034.1,unscored,,,
+2026-11-16,RELIANCE.NS,RELIANCE.NS,setup,5,neutral,none,0.486,2026-11-13,1339.7,unscored,,,
+2026-11-16,TCS.NS,TCS.NS,setup,5,bearish,low,0.412,2026-11-13,2407.5,open,,,
+2026-11-16,HDFCBANK.NS,HDFCBANK.NS,setup,5,bullish,moderate,0.614,2026-11-13,804.0,open,,,
+2026-11-16,INFY.NS,INFY.NS,setup,5,neutral,none,0.564,2026-11-13,1141.5,unscored,,,
+2026-11-16,ICICIBANK.NS,ICICIBANK.NS,setup,5,bearish,low,0.418,2026-11-13,1583.6,open,,,
